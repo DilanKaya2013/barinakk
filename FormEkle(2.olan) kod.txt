@@ -1,0 +1,86 @@
+   string baglanti = "Server=localhost;Database=barinak;Uid=root;Pwd='';";
+        string hedefDosya = "";
+
+        void ResimSec()
+        {
+            OpenFileDialog dosya = new OpenFileDialog();
+            dosya.Filter = "Resim Dosyası |*.jpg;*.nef;*.png| Video|*.avi| Tüm Dosyalar |*.*";
+            dosya.Title = "Dosya Seçiniz";
+
+            if (dosya.ShowDialog() == DialogResult.OK)
+            {
+
+                if (!Directory.Exists("resimler"))
+                {
+                    Directory.CreateDirectory("resimler");
+                }
+
+                string kaynakDosya = dosya.FileName;
+                hedefDosya = Path.Combine("resimler", Guid.NewGuid() + ".jpg");
+
+                //MessageBox.Show(hedefDosya);
+
+
+
+            }
+
+        }
+
+        private void btnResim_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dosya = new OpenFileDialog();
+            dosya.Filter = "Resim Dosyası |*.jpg;*.nef;*.png| Video|*.avi| Tüm Dosyalar |*.*";
+            dosya.Title = "Dosya Seçiniz";
+
+            if (dosya.ShowDialog() == DialogResult.OK)
+            {
+                if (!Directory.Exists("resimler"))
+                {
+                    Directory.CreateDirectory("resimler");
+                }
+
+                string kaynakDosya = dosya.FileName;
+                hedefDosya = Path.Combine("resimler", Guid.NewGuid() + ".jpg");
+
+                File.Copy(kaynakDosya, hedefDosya);
+                pbEkleResim.ImageLocation = hedefDosya;
+                pbEkleResim.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+        }
+
+        private void btnKaydet_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection con = new MySqlConnection(baglanti))
+            {
+
+                string sql = "INSERT INTO hayvanlar (tur,cins,ad,dogumyil,saglikli,resim) VALUES (@tur,@cins,@ad,@dogumyil,@saglikli,@resim );";
+
+                con.Open();
+
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+
+
+                cmd.Parameters.AddWithValue("@tur", cmbEkleTur.Text);
+                cmd.Parameters.AddWithValue("@cins", txtEkleCins.Text);
+                cmd.Parameters.AddWithValue("@ad", txtEkleAd.Text);
+                cmd.Parameters.AddWithValue("@dogumyil", dtpEkleDogum.Text);
+                cmd.Parameters.AddWithValue("@saglikli", chkEkleSaglikli.Text);
+                cmd.Parameters.AddWithValue("@resim", hedefDosya);
+
+
+
+
+                DialogResult result = MessageBox.Show("Kayıt eklensin mi?", "Kayıtı Ekle", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Kayıt Eklensin mi?");
+
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //FormEkle formFilmEkle = new FormEkle();
+           // formFilmEkle.ShowDialog();
+        }
+
+        private void btnListele_Click(object sender, EventArgs e)
+        {
+            FormListele formListele = new FormListele();
+            formListele.ShowDialog();
+        }
+
+        private void btnEkle_Click(object sender, EventArgs e)
+        {
+            FormEkle formEkle = new FormEkle();
+            formEkle.ShowDialog();
+        }

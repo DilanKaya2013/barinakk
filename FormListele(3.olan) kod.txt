@@ -1,0 +1,143 @@
+ string baglanti = "Server=localhost;Database=barinak;Uid=root;Pwd='';";
+        string hedefDosya = "";
+
+
+
+        private void VeriGetir()
+        {
+            using (MySqlConnection con = new MySqlConnection(baglanti))
+            {
+
+                string sql = "SELECT *FROM hayvanlar";
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                dgvListe.DataSource = dt;
+                dgvListe.Invalidate();
+                dgvListe.Refresh();
+
+            }
+        }
+        private void FormListele_Load(object sender, EventArgs e)
+        {
+            VeriGetir();
+        }
+
+        private void dgvListe_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            cmbTur.Text = dgvListe.CurrentRow.Cells["tur"].Value.ToString();
+            txtCins.Text = dgvListe.CurrentRow.Cells["cins"].Value.ToString();
+            txtAd.Text = dgvListe.CurrentRow.Cells["ad"].Value.ToString();
+            dtpDogum.Text = dgvListe.CurrentRow.Cells["dogumyil"].Value.ToString();
+            chkSaglikli.Checked = Convert.ToBoolean(dgvListe.CurrentRow.Cells["saglikli"].Value.ToString());
+            pbListeleResim.ImageLocation = dgvListe.CurrentRow.Cells[5].Value.ToString();
+
+
+        }
+
+        private void btnSil_Click_1(object sender, EventArgs e)
+        {
+
+            using (MySqlConnection con = new MySqlConnection(baglanti))
+            {
+                string sql = "DELETE FROM hayvanlar WHERE id=@id";
+                int Id = Convert.ToInt32(dgvListe.CurrentRow.Cells["id"].Value);
+
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@id", Id);
+
+                DialogResult result = MessageBox.Show("Kayıt silinsin mi?", "Kayıtı Sil", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    cmd.ExecuteNonQuery();
+                    VeriGetir();
+                }
+            }
+
+
+        }
+
+
+
+
+        private void btnGuncelle_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection con = new MySqlConnection(baglanti))
+            {
+
+                string sql = "UPDATE hayvanlar SET tur=@tur,cins=@cins,ad=@ad,dogumyil=@dogumyil,saglikli=@saglikli,resim=@resim WHERE id=@id";
+
+                con.Open();
+
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+
+
+                cmd.Parameters.AddWithValue("@tur", cmbTur.Text);
+                cmd.Parameters.AddWithValue("@cins", txtCins.Text);
+                cmd.Parameters.AddWithValue("@ad", txtAd.Text);
+                cmd.Parameters.AddWithValue("@dogumyil", dtpDogum.Value);
+                cmd.Parameters.AddWithValue("@saglikli", chkSaglikli.Checked);
+                cmd.Parameters.AddWithValue("@resim", pbListeleResim.Image);
+                cmd.Parameters.AddWithValue("@id", id);
+
+
+
+
+                DialogResult result = MessageBox.Show("Hayvan eklensin mi?", "Hayvan Ekle", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    cmd.ExecuteNonQuery();
+
+                }
+
+                VeriGetir();
+
+
+            }
+        }
+
+        private void btnAra_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection con = new MySqlConnection(baglanti))
+            {
+                string aranan=txtAra.Text;
+
+                string sql = "SELECT * FROM hayvanlar WHERE cins LIKE '%"+aranan+"%'";
+
+                con.Open();
+
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+
+
+                cmd.Parameters.AddWithValue("@tur", cmbTur.Text);
+                cmd.Parameters.AddWithValue("@cins", txtCins.Text);
+                cmd.Parameters.AddWithValue("@ad", txtAd.Text);
+                cmd.Parameters.AddWithValue("@dogumyil", dtpDogum.Value);
+                cmd.Parameters.AddWithValue("@saglikli", chkSaglikli.Checked);
+                cmd.Parameters.AddWithValue("@resim", pbListeleResim.Image);
+                cmd.Parameters.AddWithValue("@id", id);
+                MySqlCommand mySqlCommand = new MySqlCommand(sql, con);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                dgvListe.DataSource = dt;
+                dgvListe.Invalidate();
+                dgvListe.Refresh();
+            }
+        }
