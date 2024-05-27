@@ -1,0 +1,14 @@
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\bin\Debug\barinakapp.exe.config
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\bin\Debug\barinakapp.exe
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\bin\Debug\barinakapp.pdb
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\bin\Debug\MySql.Data.dll
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\obj\Debug\barinakapp.csproj.AssemblyReference.cache
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\obj\Debug\barinakapp.Form1.resources
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\obj\Debug\barinakapp.FormEkle.resources
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\obj\Debug\barinakapp.Properties.Resources.resources
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\obj\Debug\barinakapp.csproj.GenerateResource.cache
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\obj\Debug\barinakapp.csproj.CoreCompileInputs.cache
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\obj\Debug\barinakapp.csproj.Up2Date
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\obj\Debug\barinakapp.exe
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\obj\Debug\barinakapp.pdb
+C:\Users\student\Desktop\Ahmet\ntp\barinakapp\barinakapp\obj\Debug\barinakapp.FormListele.resources
