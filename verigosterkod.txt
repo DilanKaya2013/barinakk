@@ -1,0 +1,31 @@
+  string connectionString = "Server=localhost;Database=muzik;Uid=root;Pwd='';";
+
+        void VeriGoster()
+        {
+            using (MySqlConnection baglanti = new MySqlConnection(connectionString))
+            {
+                string sorgu = "SELECT *FROM sarkilar";
+
+                baglanti.Open();
+
+                MySqlCommand komut = new MySqlCommand(sorgu, baglanti);
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(komut);
+
+                DataTable tablo = new DataTable();
+
+                adapter.Fill(tablo);
+
+                dataGridView1.DataSource = tablo;
+
+                dataGridView1.Invalidate();
+                dataGridView1.Refresh();
+
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            VeriGoster();
+        }
+    }
